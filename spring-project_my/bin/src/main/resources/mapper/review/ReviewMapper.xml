@@ -1,0 +1,59 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!-- MemberMapper.java(InterFace) 연결 -->
+<mapper namespace="com.java.www.mapper.ReviewMapper">
+	
+	<!-- //캠핑리뷰 - 리스트(캠핑장)    전체글가져오기 -->
+	<select id="Cps_selectAll" resultType="com.java.www.dto.Cps_reviewDto">
+		select * from (select rownum rnum, a.* from(select * from Cps_review
+		
+			<if test="re_category == 'cps_sitename' or re_category == 'cps_btitle' or re_category == 'cps_bcontent'">
+				where ${re_category} like '%'||#{re_searchWord}||'%'
+			</if>
+			<if test="re_category == 're_all'">
+				where cps_sitename like '%'||#{re_searchWord}||'%' or cps_btitle like '%'||#{re_searchWord}||'%' or cps_bcontent like '%'||#{re_searchWord}||'%'
+			</if>
+			
+		order by  CPS_BNO asc) a) where rnum between #{re_StartRow} and #{re_endRow}
+	</select>
+	<!-- //캠핑리뷰 - 리스트(캠핑장)    게시글 검색개수(null, all, btitle, bcontent가 넘어옴) -->
+	<select id="Cps_selectcountAll" resultType="int">
+		select count(*) from Cps_review
+		
+		<if test="re_category == 'cps_sitename' or re_category == 'cps_btitle' or re_category == 'cps_bcontent'">
+			where ${re_category} like '%'||#{re_searchWord}||'%'
+		</if>
+		<if test="re_category == 're_all'">
+			where cps_sitename like '%'||#{re_searchWord}||'%' or cps_btitle like '%'||#{re_searchWord}||'%' or cps_bcontent like '%'||#{re_searchWord}||'%'
+		</if>
+	</select>
+	
+	
+	<!-- 캠핑리뷰 - 뷰(캠핑장)    게시글 1개 가져오기(현재글) -->
+	<select id="Cps_selectOne" resultType="com.java.www.dto.Cps_reviewDto">
+		select * from Cps_review where cps_bno=#{cps_bno}
+	</select>
+	<!-- 캠핑리뷰 - 뷰(캠핑장)    게시글 1개 가져오기(이전글) -->
+	<select id="Cps_selectOneprev" resultType="com.java.www.dto.Cps_reviewDto">
+		select * from (select row_number() over(order by CPS_BNO asc) rnum, a.* from Cps_review a) where rnum = 
+		(select rnum from (select row_number() over(order by CPS_BNO asc) rnum, a.* from Cps_review a) where CPS_BNO = #{CPS_BNO})+1
+	</select>
+	<!-- 캠핑리뷰 - 뷰(캠핑장)    게시글 1개 가져오기(다음글) -->
+	<select id="Cps_selectOnenext" resultType="com.java.www.dto.Cps_reviewDto">
+		select * from (select row_number() over(order by CPS_BNO asc) rnum, a.* from Cps_review a) where rnum = 
+		(select rnum from (select row_number() over(order by CPS_BNO asc) rnum, a.* from Cps_review a) where CPS_BNO = #{CPS_BNO})-1
+	</select>
+	
+	<!-- 캠핑리뷰 - 뷰(캠핑장)    게시글 조회수 1증가 -->
+	<update id="Cps_bhitUp">
+		update Cps_review set Cps_bhit=Cps_bhit+1 where CPS_BNO=#{CPS_BNO}
+	</update>
+	
+	<!-- 캠핑리뷰 - 뷰(캠핑장)    게시글 1개 가져오기 - 댓글 모두 가져오기 -->
+	<select id="Cps_commentSelectAll" resultType="com.java.www.dto.Cps_commentDto">
+		select * from Cps_comment where cps_bno=#{cps_bno} order by cps_cno desc
+	</select>
+	
+</mapper>

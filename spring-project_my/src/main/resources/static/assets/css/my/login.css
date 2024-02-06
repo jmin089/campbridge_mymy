@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+@import url('https://fonts.cdnfonts.com/css/nasa');
+
+@font-face {
+	font-family: 'fontYouandiModernTR'; /*글꼴*/
+	src: url('fontYouandiModernTR.ttf') format('truetype');
+}
+section {margin: 150px 50px; text-align: center; background-image: url('../../img/login/login5.jpg');}
+
+* {padding: 0;	margin: 0 auto;}
+
+.loginback {background-repeat: no-repeat;	background-position: center;	margin-top: 40px; margin-bottom:50px;}
+.login_wap {margin-top:200px;	background-color:white;	width: 500px;	height: 700px;	border: 5px solid #FFCE32;	border-radius: 20px;	box-sizing: border-box;}
+.login_wap>h2 {padding-top: 40px;	font-size: 40px;	color: #868e96;	margin-bottom: 20px;	text-align: center;	margin-left: 10px;	font-weight: 700;}
+#log_f>input {border: none;	width: 350px;	height: 55px;	padding: 0 10px;	box-sizing: border-box;	margin-bottom: 12px;	border-radius: 13px;	background-color: #F8F8F8;	font-size: 20px;}
+
+/*input 박스안  */
+#log_f>input::placeholder {color: #868e96;	font-size: 17px;}
+#log_f>input[type="button"] {border: none;	color: #fff;	font-size: 30px;	background-color: #009223;	margin-top: 10px;	cursor: pointer;}
+#log_f>input[type="button"]:hover {color: #FFCE32;}
+#log_f>input[type="checkbox"] {display: none;}
+
+/*체크박스-아이디 저장 */
+#log_f>label {color:#868e96;	font-weight: 600;	font-size: 14px;	margin-right: 210px;}
+
+/*아이디,비번 찾기  */
+#find {font-size: 14px;	font-weight: 600;	text-align: center;	margin:10px 0 15px 220px;}
+#find a {color:#009223;}
+#find a:hover {color: #FFCE32;}
+
+#kakaologinBtn {border: none;	font-size: 30px; border-radius: 30px;	margin-top: 10px;	cursor: pointer;}
+#my-signin2 {border-radius: 10px;	overflow: hidden;	width: 350px;}
+.askSingup {margin-left: 20px;	font-size: 14px;	margin-top: 20px;}
+.suGo {font-size: 24px;	font-weight: 600;}
+
+.ex_join {margin-top: 40px;	margin-left: 40px;}
+.ex_join a {color:#868e96;}
+.ex_join a:hover {color: #FFCE32;}
