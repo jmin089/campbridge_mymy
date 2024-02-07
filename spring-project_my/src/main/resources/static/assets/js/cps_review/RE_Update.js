@@ -2,6 +2,11 @@
  * siteUpdate.jsp파일
  */
 $(function() {
+	/*수정완료 버튼*/
+	$("#reUp_saveBtn").click(function(){
+		site_doUpdateFrm.submit();
+	});
+
 	$('#summernote').summernote({
 		height: 300,                // 에디터 높이
 		minHeight: 300,          // 에디터 최소 높이

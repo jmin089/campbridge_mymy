@@ -28,14 +28,22 @@ section {margin:150px 50px; text-align:center;}
 /* 체크박스 부분 */
 .cp_check dt{float: left; padding-right:30px; }
 .cp_check ul li{float: left; padding-right:15px;}
-.pack {width:1050px; font-family: Arial, sans-serif; margin: 20px;  margin-bottom: 100px;  margin-left:400px;  padding: 30px;  border: 1px solid #ccc;  border-radius: 5px;}
+.pack {width:1050px; font-family: Arial, sans-serif; margin: 20px;  margin-bottom: 100px;  margin-left:400px;  padding: 45px 30px 30px 30px;  border: 1px solid #ccc;  border-radius: 5px;}
 .pack dt {font-size: 18px;  font-weight: bold; margin-bottom: 10px;}
-.pack ul {list-style-type: none; padding: 0;}
+.pack ul {list-style-type: none; padding: 0; height: 30px;}
 .pack li {margin-bottom: 10px;}
 .pack input[type="checkbox"] {margin-right: 5px;}
 .pack label {cursor: pointer;}
 .pack input[type="checkbox"]:checked + label {font-weight: bold; color: #4CAF50;}
 
+/* 모달창 */
+.modal {display: none; /* 초기에 모달 숨기기 */
+  position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto;}
+.modal-content {margin: 15% auto; padding: 20px; width: 80%; max-width: 300px; max-height:300px; background-color: #fefefe; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.3); left:600px; top:240px;}
+.close {color: #aaa; float: right; font-size: 28px; font-weight: bold;}
+.close:hover, .close:focus {color: black; text-decoration: none; cursor: pointer;}
+.close:hover, .close:focus {color: black; text-decoration: none; cursor: pointer;}
+.Main_Category{height: 50px;}
 
 /*--------------------------------------------------------------
 # rent 패키지 상세페이지
@@ -43,7 +51,6 @@ section {margin:150px 50px; text-align:center;}
 #s_page {display: flex; flex-direction: column; align-items: center; justify-content: center;  height: 100%; text-align: center;}
 #s_page>img {max-width: 100%; margin-bottom: 50px;}
 #packV {display: flex;  justify-content: center;  align-items: center;}
-
 
 /*--------------------------------------------------------------
 # cart1
@@ -98,8 +105,6 @@ section {margin:150px 50px; text-align:center;}
 #mypage .diviRight ul li a{display:block; width:100px; height:20px; line-height:19px; background:#5b524d; color:#fff; font-size:13px; font-weight:600; text-align:center;}
 #mypage .diviRight ul li a:hover{color:#fff;}
 
-
- 	
 /* 총금액부분 */
 .amount{position:relative; margin-left:405px; margin-top: 150px; margin-bottom:100px; width:1000px; border:6px #999 solid; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; overflow:hidden;}
 .amount h4{font-size:30px; color:#444; padding:0 0 66px 0; margin:30px 20px 20px; border-bottom:1px #d9d9d9 solid;}
@@ -114,8 +119,6 @@ section {margin:150px 50px; text-align:center;}
 .amount .total li.mileage{color:#888; padding:8px 0 0 20px;}
 .amount .total li.txt{padding:8px 0 0 20px;}
 .amount .total li.money span{font-size:22px; color:#f7703c; font-weight:600; letter-spacing:-1.5px;}
-
-
 
 /*--------------------------------------------------------------
 # cart2
@@ -134,13 +137,12 @@ section {margin:150px 50px; text-align:center;}
 #cartPage h3 span{font-size:13px; color:#888; font-weight:normal; padding:0 0 0 5px;}
 #cartPage .shortTxt{font-size:13px; font-weight:600; color:#666; line-height:1.2; padding:18px 0 10px 0;}
 #cart_maxcontents{width:1200px; margin: 0 auto;}
-#cart_maxcontents h2{height:57px; }
+.explanation{height:20px; font-size: 15px; }
 #cart_maxcontents h2 strong{width:100%; display:block; font-size:40px; font-weight:600; color:#444;}
 
 .poroductTotal{width:1200px; height:80px; background:#f9f9f9; overflow:hidden;}
 .poroductTotal ul{float:right; padding:30px 20px; list-style: none;}
 .poroductTotal ul li{float:left; font-size:16px; text-align:right; color:#666; }
-
 
 /* 주문자, 수취자 입력란 */
 #cart_area {width: 1000px; height: 127px; box-sizing: border-box; padding: 40px 0px 0px;	margin: 0 auto;}
@@ -186,9 +188,9 @@ section {margin:150px 50px; text-align:center;}
 #order_demand_dl dt label {padding-top: 16px;}
 #order_demand_dl input {width: 755px;}
 
-#order_payment_dl dt {height: 60px;}
-#order_payment_dl dd {height: 60px;}
-#order_payment_dl dt label {padding-top: 19px;}
+#order_payment_dl dt {height: 80px;}
+#order_payment_dl dd {height: 80px;}
+#order_payment_dl dt label {padding-top: 30px;}
 #order_payment_dl ul {list-style: none; margin-left:-30px;}
 #order_payment_dl input[type="checkbox"] {margin-right: 5px;}
 #order_payment_dl label {cursor: pointer;}
@@ -208,17 +210,12 @@ section {margin:150px 50px; text-align:center;}
 .amount2 .total li.txt{padding:8px 0 0 20px;}
 .amount2 .total li.money span{font-size:22px; color:#f7703c; font-weight:600; letter-spacing:-1.5px;}
 
-
-
 /*--------------------------------------------------------------
 # cart3
 --------------------------------------------------------------*/
 .cp_cart03 h1{font-weight: 700; text-align: center; margin-top:50px;}
 .amount3{position:relative; margin-top:100px; margin-left: auto; margin-right: auto; margin-bottom:100px; width:50%; border:6px #009223 solid; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; overflow:hidden;}
 .amount3 p {margin-top:35px; font-size:35px; font-weight: 700; text-align: center; color:#666;}
-
-
-
 
 
 button {margin-bottom: 50px;  background-color: #009223;  color: #fff; padding: 10px 15px; font-size: 16px;  border: none;  border-radius: 5px;  cursor: pointer;  transition: background-color 0.3s;}

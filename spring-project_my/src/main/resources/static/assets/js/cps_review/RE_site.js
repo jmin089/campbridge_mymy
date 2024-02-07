@@ -58,7 +58,7 @@ $(function(){
                 let re_cpsdata = '';
                 re_cpsdata += '<tr id="'+data.cps_cno+'">';
                 re_cpsdata += '<td style="border-bottom: 2px solid #eee; padding: 10px;">';
-                re_cpsdata += '<strong>댓글 작성자</strong> | <strong style="color: blue;">'+data.id+'</strong>&nbsp;&nbsp;<span>['+data.cps_cdate+']</span>';
+                re_cpsdata += '<strong>댓글 작성자</strong> | <strong style="color: blue;"class="cps_id">'+data.id+'</strong>&nbsp;&nbsp;[<span>'+moment(data.cps_cdate).format("YYYY-MM-DD HH:mm:ss")+'</span>]';
                 re_cpsdata += '<li class="review_replyTxt">'+data.cps_ccontent+'</li>';
                 re_cpsdata += '<li id="replyBtn">';
                 re_cpsdata += '<button class="rDelBtn">삭제</button>&nbsp;';
@@ -120,13 +120,13 @@ $(function(){
 		let cps_cno = $(this).parent().parent().parent().attr("id");
 		let cps_ccontent = $(this).parent().prev().text();
 		let cps_cdate =  $(this).parent().parent().find("span").text();
-		let id = "${session_id}";
+		let id = $(this).parent().parent().find(".cps_id").text();
 		
 		let re_cpsdata = '';
 		
 		re_cpsdata += '<input type="hidden" id="hiddenTxt" value="'+cps_ccontent+'">';
 		re_cpsdata += '<td style="border-bottom: 2px solid #eee; padding: 10px;">';
-        re_cpsdata += '<strong>댓글 작성자</strong> | <strong style="color: blue;">'+id+'</strong>&nbsp;&nbsp;<span>'+cps_cdate+'</span>';
+        re_cpsdata += '<strong>댓글 작성자</strong> | <strong style="color: blue;" class="cps_id">'+id+'</strong>&nbsp;&nbsp;<span>['+cps_cdate+']</span>';
         re_cpsdata += '<li class="review_replyTxt"><textarea cols="145%">'+cps_ccontent+'</textarea></li>';
         re_cpsdata += '<li id="replyBtn">';
         re_cpsdata += '<button type="button" class="cps_cancel">취소</button>&nbsp;';
@@ -161,7 +161,7 @@ $(function(){
                 
                 let re_cpsdata = '';
                 re_cpsdata += '<td style="border-bottom: 2px solid #eee; padding: 10px;">';
-                re_cpsdata += '<strong>댓글 작성자</strong> | <strong style="color: blue;">'+data.id+'</strong>&nbsp;&nbsp;<span>['+data.cps_cdate+']</span>';
+                re_cpsdata += '<strong>댓글 작성자</strong> | <strong style="color: blue;"class="cps_id">'+data.id+'</strong>&nbsp;&nbsp;[<span>'+moment(data.cps_cdate).format("YYYY-MM-DD HH:mm:ss")+'</span>]';
                 re_cpsdata += '<li class="review_replyTxt">'+data.cps_ccontent+'</li>';
                 re_cpsdata += '<li id="replyBtn">';
                 re_cpsdata += '<button class="rDelBtn">삭제</button>&nbsp;';
@@ -182,13 +182,13 @@ $(function(){
 	$(document).on("click",".cps_cancel",function(){
 		//alert("댓글 수정 취소 시작")
 		let cps_cno = $(this).parent().parent().parent().attr("id");
-		let id = "${session_id}";
+		let id = $(this).parent().parent().find(".cps_id").text();
 		let cps_cdate =  $(this).parent().parent().find("span").text();
 		let cps_ccontent = $(this).closest("tr").find("input[type='hidden']").val();
 	
 		let re_cpsdata = '';
 		re_cpsdata += '<td style="border-bottom: 2px solid #eee; padding: 10px;">';
-		re_cpsdata += '<strong>댓글 작성자</strong> | <strong style="color: blue;">'+id+'</strong>&nbsp;&nbsp;<span>'+cps_cdate+'</span>';
+		re_cpsdata += '<strong>댓글 작성자</strong> | <strong style="color: blue;"class="cps_id">'+id+'</strong>&nbsp;&nbsp;<span>'+cps_cdate+'</span>';
 		re_cpsdata += '<li class="review_replyTxt">'+cps_ccontent+'</li>';
 		re_cpsdata += '<li id="replyBtn">';
 		re_cpsdata += '<button class="rDelBtn">삭제</button>&nbsp;';

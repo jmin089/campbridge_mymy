@@ -148,10 +148,6 @@
 								<span class="title">상품 합계금액</span>
 								<span class="won"><strong>63,000</strong> 원</span>
 							</li>
-							<li>
-								<span class="title">배송비</span>
-								<span class="won"><strong>5,000</strong> 원</span>
-							</li>
 						</ul>
 						<ul class="total">
 							
@@ -177,9 +173,9 @@
 				 
 			
 		  
-		  <a href="cpRent"><button>뒤로가기</button></a> 
-		  <a href="cp_Cart02"><button>선택상품 주문하기</button></a> 
-		  <a href="cp_Cart02"><button>전체상품 주문하기</button></a> 
+		  <a href="cpRent"><button type="button">뒤로가기</button></a> 
+		  <a href="cp_Cart02"><button type="button">선택상품 주문하기</button></a> 
+		  <a href="cp_Cart02"><button type="button">전체상품 주문하기</button></a> 
         
 		</section>
         

@@ -105,8 +105,6 @@
 					<div class="poroductTotal">
 						<ul>	
 							<li>상품 합계금액 <strong>63,000</strong> 원</li>
-							<li>+ 배송비 <strong>5,000</strong> 원</li>
-							<li>= 총 합계 <strong>68,000</strong> 원</li>
 						</ul>
 					</div>
 					<!-- //주문 상품 -->
@@ -116,71 +114,6 @@
 			<form name="agree" method="get" action="#">
 				<div id="cart_area">
 					<h3>주문자 주소 입력</h3>
-				</div>
-				
-				<fieldset class="cart_fieldset_class">
-					<dl id="order_name_dl">
-						<dt>
-							<label for="name">이름</label>
-						</dt>
-						<dd>
-							<input type="text" id="name" name="name" required/>
-						</dd>
-					</dl>
-					
-					<dl id="order_tell_dl">
-						<dt>
-							<label for="f_tell">휴대전화</label>
-						</dt>
-						<dd>
-							<input type="text" id="f_tell" name="f_tell" maxlength="3" required />
-							<span> - </span>
-							<input type="text" id="m_tell" name="m_tell" maxlength="4" required />
-							<span> - </span>
-							<input type="text" id="l_tell" name="l_tell" maxlength="4" required />
-						</dd>
-					</dl>
-					
-					
-					<dl id="order_mail_dl">
-						<dt>
-							<label for="mail_id">이메일</label>
-						</dt>
-						<dd>
-							<input type="text" id="mail_id" name="mail_id" required />
-							<span>@</span>
-							<input type="text" id="main_tail" name="mail_tail" required />
-							<select>
-								<option selected>직접입력</option>
-								<option>지메일</option>
-								<option>네이버</option>
-								<option>네이트</option>
-							</select>
-						</dd>
-					</dl>
-					
-					<dl id="order_address_dl">
-						<dt> 
-							<label for="">주소</label>
-						</dt>
-						<dd>
-							<input type="text" id="l_postal" name="l_postal" required />
-							<input type="button" value="우편번호"/>
-							<input type="text" id="address1" name="address1" required />
-							<input type="text" id="address2" name="address2" required />
-						</dd>
-					</dl>
-				</fieldset>
-			</form>
-			<!-- //주문자 주소 입력 -->
-
-
-			<!-- 수취자 주소 입력 -->
-			<form name="agree" method="get" action="#">
-				<div id="cart_area">
-					<h3>수취자 주소 입력</h3>
-					<input type="checkbox" id="infosame"/>
-					<label for="infosame">회원정보와 동일</label>
 				</div>
 				
 				<fieldset class="cart_fieldset_class">
@@ -251,11 +184,15 @@
 							<ul>
 								<li>
 									 <input type="checkbox" id="payment1" name="payment" value="신용카드" onClick="clkOftenAddr(this);"/> 
-									 <label for="payment1">신용카드</label> 
+									 <label for="payment1">만나서현금</label> 
 								</li>
 						 		<li> 
 							 		<input type="checkbox" id="payment2" name="payment" value="무통장입금" onClick="clkOftenAddr(this);"/> 
-							 		<label for="payment2">무통장 입금</label> 
+							 		<label for="payment2">무통장입금</label> 
+						 		</li>
+						 		<li> 
+							 		<input type="checkbox" id="payment2" name="payment" value="무통장입금" onClick="clkOftenAddr(this);"/> 
+							 		<label for="payment2">카카오페이</label> 
 						 		</li>
 					 		</ul>
 					 	</dd>

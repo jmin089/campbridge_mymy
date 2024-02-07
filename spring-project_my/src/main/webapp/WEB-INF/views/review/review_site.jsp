@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
@@ -18,8 +19,7 @@
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
 	rel="stylesheet">
 
 <!-- Vendor CSS Files -->
@@ -35,6 +35,8 @@
 <link href="/assets/css/review/siteReview.css" rel="stylesheet" type="text/css">
 <link href="/assets/css/review/listStyle2.css" rel="stylesheet" type="text/css">
 <link href="/assets/css/review/header2.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 <script src="../assets/js/cps_review/RE_site.js"></script>
 </head>
@@ -188,12 +190,18 @@
 					        <c:forEach var="Cps_comment" items="${map.Cps_commentlist}" varStatus="loop">
 						    <tr id="${Cps_comment.cps_cno}">
 				                <td style="border-bottom: 2px solid #eee; padding: 10px;">
-				                    <strong>댓글 작성자</strong> | <strong style="color: blue;">${Cps_comment.id}</strong>&nbsp;&nbsp;<span><fmt:formatDate value="${Cps_comment.cps_cdate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+				                    <strong>댓글 작성자</strong> | <strong style="color: blue;"class="cps_id">${Cps_comment.id}</strong>&nbsp;&nbsp;[<span>${Cps_comment.cps_cdate}</span>]
 				                    <li class="review_replyTxt">${Cps_comment.cps_ccontent}</li>
+				                    <c:if test="${session_id == Cps_comment.id}">
 				                    <li id="replyBtn">
 				                        <button type="button" class="rDelBtn">삭제</button>&nbsp;
 				                        <button type="button" class="rUBtn">수정</button>
 				                    </li>
+				                    </c:if>
+				                    <c:if test="${session_id == Cps_comment.id}">
+				                    <li id="replyBtn">
+				                    </li>
+				                    </c:if>
 				                </td>
 						    </tr>
 						    

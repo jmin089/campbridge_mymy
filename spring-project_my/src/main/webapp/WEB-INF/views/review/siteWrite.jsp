@@ -30,12 +30,14 @@
 	    <!-- Template Main CSS File -->
  		<link href="../assets/css/main2.css" rel="stylesheet">
        	<link href="../assets/css/header.css" rel="stylesheet">
-		<link href="../assets/css/commuinty/listStyle.css" rel="stylesheet">
-		<link href="../assets/css/commuinty/viewStyle.css" rel="stylesheet">
-		<link href="../assets/css/commuinty/writeStyle.css" rel="stylesheet">
+		<link href="../assets/css/community/listStyle.css" rel="stylesheet">
+		<link href="../assets/css/community/viewStyle.css" rel="stylesheet">
+		<link href="../assets/css/community/writeStyle.css" rel="stylesheet">
+		<!--  
 		<script src="../assets/js/summernote-lite.js"></script>
         <script src="../assets/js/summernote/lang/summernote-ko-KR.js"></script>
 		<link href="../assets/css/summernote-lite.css" rel="stylesheet">
+		-->
 		
 		<!-- Template nWrite JS File -->
   		<script src="../assets/js/cps_review/RE_Write.js"></script>

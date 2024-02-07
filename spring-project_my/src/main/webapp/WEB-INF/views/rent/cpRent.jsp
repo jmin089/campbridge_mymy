@@ -41,6 +41,38 @@
 			<h1 style="color:red;">※ 안내사항 ※</h1><br>
 			<div><img src="../assets/img/rent/cpRent0.png"></div>
 		
+			<!-- 모달 창 -->
+			<div id="myModal" class="modal">
+			  <div class="modal-content">
+			    <span class="close" onclick="closeModal()">&times;</span>
+			    <img id="modalImage" src="" alt="이미지">
+			  </div>
+			</div>
+			
+			<script>
+			// 모달 창을 표시하는 함수
+			function showModal(imageSrc) {
+			  var modal = document.getElementById("myModal");
+			  var modalImage = document.getElementById("modalImage");
+			  modalImage.src = imageSrc;
+			  modal.style.display = "block";
+			}
+			
+			// 모달 창을 닫는 함수
+			function closeModal() {
+			  var modal = document.getElementById("myModal");
+			  modal.style.display = "none";
+			  document.body.style.backgroundColor = "transparent"; // 배경을 투명하게 만듦
+			}
+			
+			// 모달 창 외부를 클릭했을 때 모달 창 닫기
+			window.onclick = function(event) {
+			  var modal = document.getElementById("myModal");
+			  if (event.target == modal) {
+			    modal.style.display = "none";
+			  }
+			}
+			</script>
 		   
 			<!-- 캠핑용품대여 -->
 		    	<h1>캠핑용품 대여</h1>
@@ -101,101 +133,87 @@
 		 		</ul></dl>
 		 		
 		 		<h3>용품 선택 사항</h3>
-		 		<h2 style="color:red;">※ 수령방법 필수 선택 ※</h2>
+		 		<p class="explanation" style="color:red;">※ 선택시 체크박스 선택해주세요 / 상품명(가격)에 마우스를 올리면 사진이 나옵니다. 빈곳을 누르면 창이 사라집니다.※</p>
 		  		<dl class="pack">
-			 	<dt>침구 선택 </dt>
-				 <ul>
-					 <li>
-						 <input type="checkbox" id="bedding1" name="bedding" value="침낭" onClick="clkOftenAddr(this);"/> 
-						 <label for="bedding1">침낭(6,000원)</label> 
-					 </li>
-			 		<li> 
-				 		<input type="checkbox" id="bedding2" name="bedding" value="발포매트" onClick="clkOftenAddr(this);"/> 
-				 		<label for="bedding2">발포매트(3,000원)</label> 
-			 		</li>
-					<li> 
-						<input type="checkbox" id="bedding3" name="bedding" value="전기장판" onClick="clkOftenAddr(this);"/> 
-						<label for="bedding3">전기장판(7,000원)</label> 
-					</li>
-					<li> 
-						<input type="checkbox" id="bedding3" name="bedding" value="베개" onClick="clkOftenAddr(this);"/> 
-						<label for="bedding3">베개(2,000원)</label> 
-					</li>
-		 		</ul>
-			 	<br><dt>가구 선택 </dt>
+			 	<dt class="Main_Category">침구 선택</dt>
+				<ul>
+				    <li>
+				        <input type="checkbox" id="bedding1" name="bedding" value="침낭" onClick="clkOftenAddr(this);"/> 
+				        <label for="bedding1" onmouseover="showModal('../assets/img/rent/sleepingbag.PNG');">침낭(6,000원)</label> 
+				    </li>
+				    <li> 
+				        <input type="checkbox" id="bedding2" name="bedding" value="발포매트" onClick="clkOftenAddr(this);"/> 
+				        <label for="bedding2" onmouseover="showModal('../assets/img/rent/mat.PNG');">발포매트(3,000원)</label> 
+				    </li>
+				    <li> 
+				        <input type="checkbox" id="bedding3" name="bedding" value="전기장판" onClick="clkOftenAddr(this);"/> 
+				        <label for="bedding3" onmouseover="showModal('../assets/img/rent/blanket.PNG');">전기장판(7,000원)</label> 
+				    </li>
+				    <li> 
+				        <input type="checkbox" id="bedding4" name="bedding" value="베개" onClick="clkOftenAddr(this);;"/> 
+				        <label for="bedding4" onmouseover="showModal('../assets/img/rent/pillow.PNG');">베개(2,000원)</label> 
+				    </li>
+				</ul>
+			 	<br><dt class="Main_Category">가구 선택 </dt>
 				 <ul>
 					 <li>
 						 <input type="checkbox" id="furniture1" name="furniture" value="의자" onClick="clkOftenAddr(this);"/> 
-						 <label for="furniture1">의자(7,000원)</label> 
+						 <label for="furniture1" onmouseover="showModal('../assets/img/rent/chair.PNG');">의자(7,000원)</label> 
 					 </li>
 			 		<li> 
 				 		<input type="checkbox" id="furniture2" name="furniture" value="테이블" onClick="clkOftenAddr(this);"/> 
-				 		<label for="furniture2">테이블(9,000원)</label> 
+						 <label for="furniture2" onmouseover="showModal('../assets/img/rent/table.PNG');">의자테이블(9,000원)</label> 
 			 		</li>
 					<li> 
 						<input type="checkbox" id="furniture3" name="furniture" value="야전침대" onClick="clkOftenAddr(this);"/> 
-						<label for="furniture3">야전침대(11,000원)</label> 
+						 <label for="furniture3" onmouseover="showModal('../assets/img/rent/fieldbed.PNG');">야전침대(11,000원)</label> 
 					</li>
 					
 		 		</ul>
-			 	<br><dt>식기 선택 </dt>
+			 	<br><dt class="Main_Category">식기 선택 </dt>
 				 <ul>
 					 <li>
 						 <input type="checkbox" id="tableware1" name="tableware" value="코펠 2인" onClick="clkOftenAddr(this);"/> 
-						 <label for="tableware1">코펠 2인(5,000원)</label> 
+						 <label for="tableware1" onmouseover="showModal('../assets/img/rent/coppell2.PNG');">코펠 2인(5,000원)</label>
 					 </li>
 			 		<li> 
 				 		<input type="checkbox" id="tableware2" name="tableware" value="코펠 4인" onClick="clkOftenAddr(this);"/> 
-				 		<label for="tableware2">코펠 4인(6,000원)</label> 
+						<label for="tableware2" onmouseover="showModal('../assets/img/rent/coppell4.PNG');">코펠 4인(6,000원)</label>
 			 		</li>
 					<li> 
 						<input type="checkbox" id="tableware3" name="tableware" value="아이스박스 28L" onClick="clkOftenAddr(this);"/> 
-						<label for="tableware3">아이스박스 28L(6,000원)</label> 
+						<label for="tableware3" onmouseover="showModal('../assets/img/rent/iecboxsmall.PNG');">아이스박스 28L(6,000원)</label>
 					</li>
 					<li> 
-						<input type="checkbox" id="tableware3" name="tableware" value="아이스박스 40L" onClick="clkOftenAddr(this);"/> 
-						<label for="tableware3">아이스박스 40L(9,000원)</label> 
+						<input type="checkbox" id="tableware4" name="tableware" value="아이스박스 40L" onClick="clkOftenAddr(this);"/> 
+						<label for="tableware4" onmouseover="showModal('../assets/img/rent/iecboxbig.PNG');">아이스박스 40L(9,000원)</label>
 					</li>
 					
 		 		</ul>
-			 	<br><dt>기타 선택 </dt>
+			 	<br><dt class="Main_Category">기타 선택 </dt>
 				 <ul>
 					 <li>
 						 <input type="checkbox" id="etc1" name="etc" value="타프" onClick="clkOftenAddr(this);"/> 
-						 <label for="etc1">타프(15,000원)</label> 
+						<label for="etc1" onmouseover="showModal('../assets/img/rent/tarp.PNG');">타프(15,000원)</label>
 					 </li>
 			 		<li> 
 				 		<input type="checkbox" id="etc2" name="etc" value="버너" onClick="clkOftenAddr(this);"/> 
-				 		<label for="etc2">버너(6,000원)</label> 
+						<label for="etc2" onmouseover="showModal('../assets/img/rent/burner.PNG');">버너(6,000원)</label>
 			 		</li>
 					<li> 
 						<input type="checkbox" id="etc3" name="etc" value="랜턴" onClick="clkOftenAddr(this);"/> 
-						<label for="etc3">랜턴(5,000원)</label> 
+						<label for="etc3" onmouseover="showModal('../assets/img/rent/lantern.PNG');">랜턴(5,000원)</label>
 					</li>
 					<li> 
-						<input type="checkbox" id="etc3" name="etc" value="화로대" onClick="clkOftenAddr(this);"/> 
-						<label for="etc3">화로대(14,000원)</label> 
+						<input type="checkbox" id="etc4" name="etc" value="화로대" onClick="clkOftenAddr(this);"/> 
+						<label for="etc4" onmouseover="showModal('../assets/img/rent/brazier.PNG');">화로대(14,000원)</label>
 					</li>
 					<li> 
-						<input type="checkbox" id="etc3" name="etc" value="전기릴선" onClick="clkOftenAddr(this);"/> 
-						<label for="etc3">전기릴선(6,000원)</label> 
+						<input type="checkbox" id="etc5" name="etc" value="전기릴선" onClick="clkOftenAddr(this);"/> 
+						<label for="etc5" onmouseover="showModal('../assets/img/rent/electricwire.PNG');">전기릴선(6,000원)</label>
 					</li>
 					
 		 		</ul>
-		 		<br><dt>수령 방법 </dt>
-				 <ul>
-					 <li>
-						 <input type="checkbox" id="delivery1" name="delivery" value="방문수령" onClick="clkOftenAddr(this);"/> 
-						 <label for="delivery1">방문수령</label> 
-					 </li>
-			 		<li> 
-				 		<input type="checkbox" id="delivery2" name="delivery" value="택배수령" onClick="clkOftenAddr(this);"/> 
-				 		<label for="delivery2">택배수령(5,000원)</label> 
-			 		</li>
-					
-					
-		 		</ul>
-		 		
 		 		
 		 		</dl>
 		  </div>
