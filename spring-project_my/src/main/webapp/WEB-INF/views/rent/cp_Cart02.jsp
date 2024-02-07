@@ -168,14 +168,14 @@
 							<input type="text" id="address2" name="address2" required />
 						</dd>
 					</dl>
-					<dl id="order_demand_dl">
+					<!-- <dl id="order_demand_dl">
 						<dt>
 							<label for="name">배송시 요청사항</label>
 						</dt>
 						<dd>
 							<input type="text" id="demand" name="name" required/>
 						</dd>
-					</dl>
+					</dl> -->
 					<dl id="order_payment_dl">
 						<dt>
 							<label for="name">결제 방법</label>
@@ -188,11 +188,11 @@
 								</li>
 						 		<li> 
 							 		<input type="checkbox" id="payment2" name="payment" value="무통장입금" onClick="clkOftenAddr(this);"/> 
-							 		<label for="payment2">무통장입금</label> 
+							 		<label for="payment2">무통장입금(화물배송비 50,000원 추가)</label> 
 						 		</li>
 						 		<li> 
 							 		<input type="checkbox" id="payment2" name="payment" value="무통장입금" onClick="clkOftenAddr(this);"/> 
-							 		<label for="payment2">카카오페이</label> 
+							 		<label for="payment2">카카오페이(화물배송비 50,000원 추가)</label> 
 						 		</li>
 					 		</ul>
 					 	</dd>

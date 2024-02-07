@@ -55,7 +55,7 @@
 							<col width="12%" class="tnone" />
 							</colgroup>
 							<thead class="rent_list">
-								<th scope="col"><input type="checkbox" /></th>
+								<th scope="col"><input type="checkbox"/></th>
 								<th scope="col" colspan="2" class="tp">상품명</th>
 								<th scope="col" class="tnone">가격</th>
 								<th scope="col" class="tw14">수량</th>
@@ -74,7 +74,7 @@
 										</ul>
 									</td>
 									<td class="tnone">8,000 원<br/></td>
-									<td><input class="spinner" value="1" maxlength="3" /></td>
+									<td><input class="spinner" value="1" maxlength="3"/></td>
 									<td>8,000 원</td>
 									<td class="tnone">
 										<ul class="order">	
@@ -83,6 +83,7 @@
 										</ul>
 									</td>
 								</tr>
+								<!-- 반복구간
 								<tr>
 									<td><input type="checkbox" /></td>
 									<td><p class="img"><img src="../assets/img/rent/cpRent1.png" alt="상품" width="66" height="66" /></p></td>
@@ -122,7 +123,7 @@
 											<li><a href="#" class="nbtnMini iw70">상품삭제</a></li>
 										</ul>
 									</td>
-								</tr>
+								</tr> -->
 								
 								
 							</tbody>

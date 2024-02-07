@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -29,8 +32,7 @@
 	    <link href="../assets/css/main2.css" rel="stylesheet">
 	    <link href="../assets/css/header.css" rel="stylesheet">
 		<link href="../assets/css/rent/rentcart.css" rel="stylesheet">
-	    
-	    
+		
 	</head>
 	<body>
 	<!-- ======= Header ======= -->
@@ -72,6 +74,7 @@
 			    modal.style.display = "none";
 			  }
 			}
+			
 			</script>
 		   
 			<!-- 캠핑용품대여 -->
@@ -111,23 +114,30 @@
             </ul>
         </div>
         
+        <script type="text/javascript">
+        $(document).on("click",".cp_CartBtn",function(){
+        	cp_CartFrm.submit();
+        })
+           
+        </script>
         
         <!-- 체크박스 -->
+        <form action="cp_Cart" method="post" id="cp_CartFrm" name="cp_CartFrm">
 		  <div class="cp_check">
 		  		<h3>패키지 선택</h3>
 		  		<dl class="pack">
 			 	<dt>캠핑 패키지 선택</dt><br><br>
 				 <ul>
 					 <li>
-						 <input type="checkbox" id="package1" name="package" value="2인용" onClick="clkOftenAddr(this);"/> 
+						 <input type="checkbox" id="package1" name="pro_id" value="p001" onClick="clkOftenAddr(this);"/> 
 						 <label for="package1">2인용 패키지</label> 
 					 </li>
 			 		<li> 
-				 		<input type="checkbox" id="package2" name="package" value="3인용" onClick="clkOftenAddr(this);"/> 
+				 		<input type="checkbox" id="package2" name="pro_id" value="p002" onClick="clkOftenAddr(this);"/> 
 				 		<label for="package2">3인용 패키지</label> 
 			 		</li>
 					<li> 
-						<input type="checkbox" id="package3" name="package" value="4인용" onClick="clkOftenAddr(this);"/> 
+						<input type="checkbox" id="package3" name="pro_id" value="p003" onClick="clkOftenAddr(this);"/> 
 						<label for="package3">4인용 패키지</label> 
 					</li>
 		 		</ul></dl>
@@ -138,34 +148,34 @@
 			 	<dt class="Main_Category">침구 선택</dt>
 				<ul>
 				    <li>
-				        <input type="checkbox" id="bedding1" name="bedding" value="침낭" onClick="clkOftenAddr(this);"/> 
+				        <input type="checkbox" id="bedding1" name="pro_id" value="p004" onClick="clkOftenAddr(this);"/> 
 				        <label for="bedding1" onmouseover="showModal('../assets/img/rent/sleepingbag.PNG');">침낭(6,000원)</label> 
 				    </li>
 				    <li> 
-				        <input type="checkbox" id="bedding2" name="bedding" value="발포매트" onClick="clkOftenAddr(this);"/> 
+				        <input type="checkbox" id="bedding2" name="pro_id" value="p005" onClick="clkOftenAddr(this);"/> 
 				        <label for="bedding2" onmouseover="showModal('../assets/img/rent/mat.PNG');">발포매트(3,000원)</label> 
 				    </li>
 				    <li> 
-				        <input type="checkbox" id="bedding3" name="bedding" value="전기장판" onClick="clkOftenAddr(this);"/> 
+				        <input type="checkbox" id="bedding3" name="pro_id" value="p006" onClick="clkOftenAddr(this);"/> 
 				        <label for="bedding3" onmouseover="showModal('../assets/img/rent/blanket.PNG');">전기장판(7,000원)</label> 
 				    </li>
 				    <li> 
-				        <input type="checkbox" id="bedding4" name="bedding" value="베개" onClick="clkOftenAddr(this);;"/> 
+				        <input type="checkbox" id="bedding4" name="pro_id" value="p007" onClick="clkOftenAddr(this);;"/> 
 				        <label for="bedding4" onmouseover="showModal('../assets/img/rent/pillow.PNG');">베개(2,000원)</label> 
 				    </li>
 				</ul>
 			 	<br><dt class="Main_Category">가구 선택 </dt>
 				 <ul>
 					 <li>
-						 <input type="checkbox" id="furniture1" name="furniture" value="의자" onClick="clkOftenAddr(this);"/> 
+						 <input type="checkbox" id="furniture1" name="pro_id" value="p008" onClick="clkOftenAddr(this);"/> 
 						 <label for="furniture1" onmouseover="showModal('../assets/img/rent/chair.PNG');">의자(7,000원)</label> 
 					 </li>
 			 		<li> 
-				 		<input type="checkbox" id="furniture2" name="furniture" value="테이블" onClick="clkOftenAddr(this);"/> 
+				 		<input type="checkbox" id="furniture2" name="pro_id" value="p009" onClick="clkOftenAddr(this);"/> 
 						 <label for="furniture2" onmouseover="showModal('../assets/img/rent/table.PNG');">의자테이블(9,000원)</label> 
 			 		</li>
 					<li> 
-						<input type="checkbox" id="furniture3" name="furniture" value="야전침대" onClick="clkOftenAddr(this);"/> 
+						<input type="checkbox" id="furniture3" name="pro_id" value="p010" onClick="clkOftenAddr(this);"/> 
 						 <label for="furniture3" onmouseover="showModal('../assets/img/rent/fieldbed.PNG');">야전침대(11,000원)</label> 
 					</li>
 					
@@ -173,19 +183,19 @@
 			 	<br><dt class="Main_Category">식기 선택 </dt>
 				 <ul>
 					 <li>
-						 <input type="checkbox" id="tableware1" name="tableware" value="코펠 2인" onClick="clkOftenAddr(this);"/> 
+						 <input type="checkbox" id="tableware1" name="pro_id" value="p011" onClick="clkOftenAddr(this);"/> 
 						 <label for="tableware1" onmouseover="showModal('../assets/img/rent/coppell2.PNG');">코펠 2인(5,000원)</label>
 					 </li>
 			 		<li> 
-				 		<input type="checkbox" id="tableware2" name="tableware" value="코펠 4인" onClick="clkOftenAddr(this);"/> 
+				 		<input type="checkbox" id="tableware2" name="pro_id" value="p012" onClick="clkOftenAddr(this);"/> 
 						<label for="tableware2" onmouseover="showModal('../assets/img/rent/coppell4.PNG');">코펠 4인(6,000원)</label>
 			 		</li>
 					<li> 
-						<input type="checkbox" id="tableware3" name="tableware" value="아이스박스 28L" onClick="clkOftenAddr(this);"/> 
+						<input type="checkbox" id="tableware3" name="pro_id" value="p013" onClick="clkOftenAddr(this);"/> 
 						<label for="tableware3" onmouseover="showModal('../assets/img/rent/iecboxsmall.PNG');">아이스박스 28L(6,000원)</label>
 					</li>
 					<li> 
-						<input type="checkbox" id="tableware4" name="tableware" value="아이스박스 40L" onClick="clkOftenAddr(this);"/> 
+						<input type="checkbox" id="tableware4" name="pro_id" value="p014" onClick="clkOftenAddr(this);"/> 
 						<label for="tableware4" onmouseover="showModal('../assets/img/rent/iecboxbig.PNG');">아이스박스 40L(9,000원)</label>
 					</li>
 					
@@ -193,23 +203,23 @@
 			 	<br><dt class="Main_Category">기타 선택 </dt>
 				 <ul>
 					 <li>
-						 <input type="checkbox" id="etc1" name="etc" value="타프" onClick="clkOftenAddr(this);"/> 
+						 <input type="checkbox" id="etc1" name="pro_id" value="p015" onClick="clkOftenAddr(this);"/> 
 						<label for="etc1" onmouseover="showModal('../assets/img/rent/tarp.PNG');">타프(15,000원)</label>
 					 </li>
 			 		<li> 
-				 		<input type="checkbox" id="etc2" name="etc" value="버너" onClick="clkOftenAddr(this);"/> 
+				 		<input type="checkbox" id="etc2" name="pro_id" value="p016" onClick="clkOftenAddr(this);"/> 
 						<label for="etc2" onmouseover="showModal('../assets/img/rent/burner.PNG');">버너(6,000원)</label>
 			 		</li>
 					<li> 
-						<input type="checkbox" id="etc3" name="etc" value="랜턴" onClick="clkOftenAddr(this);"/> 
+						<input type="checkbox" id="etc3" name="pro_id" value="p017" onClick="clkOftenAddr(this);"/> 
 						<label for="etc3" onmouseover="showModal('../assets/img/rent/lantern.PNG');">랜턴(5,000원)</label>
 					</li>
 					<li> 
-						<input type="checkbox" id="etc4" name="etc" value="화로대" onClick="clkOftenAddr(this);"/> 
+						<input type="checkbox" id="etc4" name="pro_id" value="p018" onClick="clkOftenAddr(this);"/> 
 						<label for="etc4" onmouseover="showModal('../assets/img/rent/brazier.PNG');">화로대(14,000원)</label>
 					</li>
 					<li> 
-						<input type="checkbox" id="etc5" name="etc" value="전기릴선" onClick="clkOftenAddr(this);"/> 
+						<input type="checkbox" id="etc5" name="pro_id" value="p019" onClick="clkOftenAddr(this);"/> 
 						<label for="etc5" onmouseover="showModal('../assets/img/rent/electricwire.PNG');">전기릴선(6,000원)</label>
 					</li>
 					
@@ -217,8 +227,10 @@
 		 		
 		 		</dl>
 		  </div>
-		  <a href="/"><button>메인으로</button></a> 
-		  <a href="cp_Cart"><button>선택품목 담기</button></a> 
+        </form>
+		  
+		  <a href="/"><button type="button">메인으로</button></a> 
+		  <button type="button" class="cp_CartBtn">선택품목 담기</button>
         
         
 		

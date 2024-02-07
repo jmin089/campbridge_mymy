@@ -6,6 +6,8 @@
 <mapper namespace="com.java.www.mapper.RentMapper">
 	
 	<!-- //캠핑리뷰 - 리스트(캠핑장)    전체글가져오기 -->
-	
+	<select id="rentCart" resultType="com.java.www.dto.ProductDto">
+		select * from product where pro_id=#{proId}
+	</select>
 	
 </mapper>
