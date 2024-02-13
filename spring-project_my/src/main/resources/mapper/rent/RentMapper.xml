@@ -5,9 +5,42 @@
 <!-- MemberMapper.java(InterFace) 연결 -->
 <mapper namespace="com.java.www.mapper.RentMapper">
 	
-	<!-- //캠핑리뷰 - 리스트(캠핑장)    전체글가져오기 -->
-	<select id="rentCart" resultType="com.java.www.dto.ProductDto">
+	<!-- //캠핑리뷰 - 리스트(캠핑장)    전체글가져오기 
+	<select id="rentCart_list" resultType="com.java.www.dto.ProductDto">
 		select * from product where pro_id=#{proId}
+	</select>-->
+	
+	<select id="rentCart" resultMap="product_rentcartDto">
+		select 'c' || rent_cart_seq.nextval as cart_id, rent.id, rent.pro_id, rent.cart_count, pro.p_name, pro.p_price, pro.p_file
+		from rent_cart rent, product pro where rent.pro_id = pro.pro_id
 	</select>
+	
+	<!-- ProductDto, Rent_cartDto 합치기 선언 -->
+	<resultMap id="product_rentcartDto" type="com.java.www.dto.Product_rentcartDto">
+    	<collection property="cartDto" resultMap="cartDto"/>
+    	<collection property="proDto" resultMap="proDto"/>
+	</resultMap>
+	<!-- Rent_cartDto 선언 -->
+	<resultMap id="cartDto" type="com.java.www.dto.Rent_cartDto">
+		<result column="cart_id" property="cart_id"/>
+		<result column="id" property="id"/>
+		<result column="pro_id" property="pro_id"/>
+		<result column="cart_count" property="cart_count"/>
+	</resultMap>
+	<!-- ProductDto 선언 -->
+	<resultMap id="proDto" type="com.java.www.dto.ProductDto">
+		<result column="pro_id" property="pro_id"/>
+		<result column="p_name" property="p_name"/>
+		<result column="p_price" property="p_price"/>
+		<result column="p_file" property="p_file"/>
+	</resultMap>
+	
+	<delete id="cart_delete">
+		delete from rent_cart where cart_id=#{cart_id}
+	</delete>
+	
+	<insert id="rentCart_list">
+		insert into rent_cart values('c' || rent_cart_seq.nextval, #{id}, #{proId}, 1)
+	</insert>
 	
 </mapper>

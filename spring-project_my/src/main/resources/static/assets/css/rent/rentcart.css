@@ -39,7 +39,7 @@ section {margin:150px 50px; text-align:center;}
 /* 모달창 */
 .modal {display: none; /* 초기에 모달 숨기기 */
   position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto;}
-.modal-content {margin: 15% auto; padding: 20px; width: 80%; max-width: 300px; max-height:300px; background-color: #fefefe; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.3); left:500px; top:240px;}
+.modal-content {margin: 15% auto; padding: 20px; width: 80%; max-width: 300px; max-height:300px; background-color: #fefefe; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.3); left:500px; top:100px;}
 .close {color: #aaa; float: right; font-size: 28px; font-weight: bold;}
 .close:hover, .close:focus {color: black; text-decoration: none; cursor: pointer;}
 .close:hover, .close:focus {color: black; text-decoration: none; cursor: pointer;}
@@ -60,7 +60,7 @@ section {margin:150px 50px; text-align:center;}
 .cp_cart ul{list-style:none;}
  .c_btnArea{margin-right: 300px; margin-top:-30px;}
 .bRight ul li {float: right; margin-right: 20px;}
-.spinner{width:30%; height: 38px; text-align: center;}
+.spinner{width: 30px; height: 30px; text-align: center;}
 .goods {float: left;}
 
 .orderDivNm{width:1200px; margin:50px auto; overflow:hidden;}
@@ -104,6 +104,11 @@ section {margin:150px 50px; text-align:center;}
 #mypage .diviRight ul li{float:left; line-height:18px; color:#888;}
 #mypage .diviRight ul li a{display:block; width:100px; height:20px; line-height:19px; background:#5b524d; color:#fff; font-size:13px; font-weight:600; text-align:center;}
 #mypage .diviRight ul li a:hover{color:#fff;}
+
+/* 수량 버튼 */
+.countBtn{margin: 20px;}
+.countBtnDown{width: 30px; height: 30px; background-image: url(/assets/img/rent/btn_pre01.png); color: black; font-size: 50px; border: none;}
+.countBtnUp{width: 30px; height: 30px; background-image: url(/assets/img/rent/btn_next01.png); color: black; font-size: 40px; border: none;}
 
 /* 총금액부분 */
 .amount{position:relative; margin-left:405px; margin-top: 150px; margin-bottom:100px; width:1000px; border:6px #999 solid; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; overflow:hidden;}
@@ -218,5 +223,7 @@ section {margin:150px 50px; text-align:center;}
 .amount3 p {margin-top:35px; font-size:35px; font-weight: 700; text-align: center; color:#666;}
 
 
-button {margin-bottom: 50px;  background-color: #009223;  color: #fff; padding: 10px 15px; font-size: 16px;  border: none;  border-radius: 5px;  cursor: pointer;  transition: background-color 0.3s;}
-button:hover {background-color: #45a049;}
+.mainBtn {margin-bottom: 50px;  background-color: #009223;  color: #fff; padding: 10px 15px; font-size: 16px;  border: none;  border-radius: 5px;  cursor: pointer;  transition: background-color 0.3s;}
+.mainBtn:hover {background-color: #45a049;}
+.cp_CartBtn {margin-bottom: 50px;  background-color: #009223;  color: #fff; padding: 10px 15px; font-size: 16px;  border: none;  border-radius: 5px;  cursor: pointer;  transition: background-color 0.3s;}
+.cp_CartBtn:hover {background-color: #45a049;}

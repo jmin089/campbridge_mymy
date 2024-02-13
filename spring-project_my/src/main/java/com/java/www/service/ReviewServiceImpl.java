@@ -139,7 +139,6 @@ public class ReviewServiceImpl implements ReviewService{
 	//캠핑리뷰 - 리스트(캠핑장)    댓글 1개 삭제
 	@Override
 	public String Cps_commentDelete(int cps_cno) {
-		System.out.println("서비스임플 삭제 cps_cno : "+cps_cno);
 		String result = "";
 		int re_cps = reviewMapper.Cps_commentDelete(cps_cno);
 		System.out.println("ReviewServiceImpl re_cps :"+re_cps);

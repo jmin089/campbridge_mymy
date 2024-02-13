@@ -246,13 +246,8 @@
 			<!-- //maxcontents -->
 
 		</div>		 
-				 
-			
-		  
-		  <a href="cp_Cart"><button>뒤로가기</button></a> 
-		  
-		  <a href="cp_Cart03"><button>주문/결제하기</button></a> 
-        
+		  <a href="cp_Cart"><button type="button" class="cp_CartBtn">뒤로가기</button></a> 
+		  <a href="cp_Cart03"><button type="button" class="cp_CartBtn">주문/결제하기</button></a> 
 		</section>
         
 		

@@ -15,5 +15,4 @@ public class ProductDto {
 	private String p_name;
 	private int p_price;
 	private String p_file;
-
 }

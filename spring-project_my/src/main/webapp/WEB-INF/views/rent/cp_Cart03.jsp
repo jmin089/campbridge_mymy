@@ -45,7 +45,7 @@
 						<img alt="안내사항" src="../assets/img/rent/payment.png">
 					</div>
 					
-		 	 <a href="/"><button>메인으로</button></a>
+		 	 <a href="/"><button type="button" class="mainBtn">메인으로</button></a>
 			</section>
         
         

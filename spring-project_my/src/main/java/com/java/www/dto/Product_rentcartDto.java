@@ -9,11 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Rent_cartDto {
+public class Product_rentcartDto {
 	
-	private String cart_id;
-	private String id;
-	private String pro_id;
-	private int cart_count;
+	private Rent_cartDto cartDto;
+	private ProductDto proDto;
 	
 }

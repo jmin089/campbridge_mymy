@@ -113,14 +113,26 @@
                 </li>
             </ul>
         </div>
-        
         <script type="text/javascript">
-        $(document).on("click",".cp_CartBtn",function(){
-        	cp_CartFrm.submit();
-        })
-           
-        </script>
-        
+	    $(document).on("click", ".cp_CartBtn", function() {
+	        // 로그인을 해야만 다음으로 진행가능하게 구현
+	        let session_id = "${session_id}";
+	        if (session_id === null || session_id === "") {
+	            alert("로그인을 하여야 다음으로 진행할 수 있습니다. 로그인 해주세요!");
+	            return false;
+	        }
+	        
+	        // 체크박스의 체크가 하나라도 선택 되어야 넘어가게 구현
+	        let checkboxes = document.querySelectorAll('input[name="pro_id"]:checked');
+	        if (checkboxes.length === 0) {
+	            alert("체크박스를 하나 이상 선택해주세요!");
+	            return false;
+	        }
+	        
+	        // 두개의 조건이 맞으면 넘어감!
+	        cp_CartFrm.submit();
+	    });
+		</script>
         <!-- 체크박스 -->
         <form action="cp_Cart" method="post" id="cp_CartFrm" name="cp_CartFrm">
 		  <div class="cp_check">
@@ -229,7 +241,7 @@
 		  </div>
         </form>
 		  
-		  <a href="/"><button type="button">메인으로</button></a> 
+		  <a href="/"><button type="button" class="cp_CartBtn">메인으로</button></a> 
 		  <button type="button" class="cp_CartBtn">선택품목 담기</button>
         
         
