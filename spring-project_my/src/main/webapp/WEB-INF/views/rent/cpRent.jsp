@@ -128,9 +128,15 @@
 	            alert("체크박스를 하나 이상 선택해주세요!");
 	            return false;
 	        }
-	        
+	     
 	        // 두개의 조건이 맞으면 넘어감!
 	        cp_CartFrm.submit();
+	        
+	     // 선택된 체크박스 체크 해제
+	        checkboxes.forEach(function (checkbox) {
+	            checkbox.checked = false;
+	        });
+
 	    });
 		</script>
         <!-- 체크박스 -->

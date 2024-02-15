@@ -16,25 +16,23 @@ public class RentServiceImpl implements RentService{
 	@Autowired RentMapper rentMapper;
 	@Autowired HttpSession session;
 	
+	// 선택상품 장바구니에 넘기기
+	@Override
+	public void rentCart_list(String proId, String id) {
+		rentMapper.rentCart_list(proId, id);
+	}
+	// 장바구니에 리스트
 	@Override
 	public List<Product_rentcartDto> rentCart(String proId) {
 		List<Product_rentcartDto> list = rentMapper.rentCart(proId);
 		System.out.println("RentServiceIm plrentCart : "+proId);
 		return list;
 	}
-
-	//선택상품 삭제하기
+	// 선택상품 삭제하기
 	@Override
-	public String cart_delete(String cart_id) {
-		String result = "";
-		int re_rent = rentMapper.cart_delete(cart_id);
-		System.out.println("RentServiceImpl cart_delete cart_id :"+cart_id);
-		return result+re_rent;
-	}
-
-	@Override
-	public void rentCart_list(String proId, String id) {
-		rentMapper.rentCart_list(proId, id);
+	public void deleteCart(String id, String cart_id) {
+		rentMapper.cart_delete(id, cart_id);
+		
 	}
 
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.java.www.dto.Product_rentcartDto;
+import com.java.www.dto.Rent_cartDto;
+import com.java.www.dto.User_campDto;
 import com.java.www.service.RentService;
 
 import jakarta.servlet.http.HttpSession;
@@ -53,15 +55,27 @@ public class RentController {
 	}
 	
 	//선택상품 삭제하기
-	@PostMapping("cart_delete")
+	@PostMapping
 	@ResponseBody
-	public String cart_delete(String cart_id) {
-		System.out.println("RentController cart_delete cart_id : "+cart_id);
-		//서비스 연결
-		String result = rentService.cart_delete(cart_id);
-		System.out.println("result: "+result);
-		return result;
+	public int deleteCart(
+	       @RequestParam(value = "chbox[]") List<String> checkArr,
+	       @RequestParam(value = "id") String id,
+	       @RequestParam(value = "cart_id") String cart_id) throws Exception {
+	   //logger.info("delete cart");
+	   
+	   Rent_cartDto rent_dto = (Rent_cartDto) session.getAttribute("id");
+	   
+	   int result = 0;
+	   
+	   if (rent_dto != null && rent_dto.getId().equals(id)) {
+	      // 여기에서 cartNum, userId를 직접 사용하여 처리하거나,
+		   rentService.deleteCart(id, cart_id); //형태로 서비스에 전달할 수 있습니다.
+	      // service.deleteCart(cart);
+	      result = 1;
+	   }    
+	   return result;    
 	}
+
 
 	//2인용 상세페이지(구현x)
 	@GetMapping("cpRent_v1")

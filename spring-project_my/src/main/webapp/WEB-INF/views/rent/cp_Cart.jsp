@@ -9,6 +9,7 @@
 		<meta charset="UTF-8">
 		<title>대여 목록</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="/resources/jquery/jquery-3.3.1.min.js"></script>
 	    <meta content="" name="description">
 	    <meta content="" name="keywords">
 	
@@ -46,8 +47,8 @@
 		<h1>장바구니</h1>
 		<h3>장바구니에 담긴 상품은 30일간 보관됩니다.</h3>
 		<div class="orderDivNm">
-			<table summary="장바구니에 담긴 상품들을 전체선택, 상품명, 가격/포인트, 수량, 합계, 주문 순으로 조회 및 주문을 하실수 있습니다." class="orderTable" border="1" cellspacing="0">
-			    <caption id="cp_cart_list">대여 상품목록</caption>
+			<table id="cartTable" summary="장바구니에 담긴 상품들을 전체선택, 상품명, 가격/포인트, 수량, 합계, 주문 순으로 조회 및 주문을 하실수 있습니다." class="orderTable" border="1" cellspacing="0">
+			    <!--<caption id="cp_cart_list">대여 상품목록</caption> -->
 			    <colgroup>
 			        <col width="7%"/>
 			        <col width="9%" class="tp" />
@@ -98,13 +99,15 @@
 					    let totalPrice = unitPrice * quantity;
 					    parentRow.find('.total_tnone').text(totalPrice.toLocaleString() + ' 원'); // 수정된 위치에 업데이트합니다.
 					}
-			    });
+			       
+			    });//$(document).ready(function()
 			</script>
 				    
 			    <tbody>
 			        <c:forEach var="product_rentcartDto" items="${list}">
 			            <tr>
-			                <td><input class="checkboxbox" type="checkbox" /></td>
+			                <td class="checkboxbox"><input class="chbox" type="checkbox" data-cart_id="${product_rentcartDto.cartDto.cart_id}" /></td>
+
 			                <td><p class="img"><img src="/upload/${product_rentcartDto.proDto.p_file}" alt="상품" width="66" height="66" /></p></td>
 			                <td>
 			                    <ul class="goods">
@@ -127,7 +130,33 @@
    							<td class="tnone">
 			                    <ul class="order">    
 			                        <li><a href="#" class="obtnMini iw70">바로구매</a></li>
-			                        <li><a href="#" class="nbtnMini iw70">상품삭제</a></li>
+			                        <div class="delete">
+										<button type="button" class="delete_btn" data-cart_id="${product_rentcartDto.cartDto.cart_id}">삭제</button>
+									</div>
+									<script>
+								    $(".delete_btn").click(function(){
+								    	let confirm_val = confirm("정말 삭제하시겠습니까?");
+								     
+								    	if(confirm_val) {
+								    	let checkArr = new Array();
+								      
+								    	checkArr.push($(this).attr("data-cart_id"));
+								                 
+								      	$.ajax({
+								        	url : "/rent/deleteCart",
+								       		type : "post",
+								       		data : { chbox : checkArr },
+								       		success : function(result){
+								        		if(result == 1) {       
+								         			location.href = "/rent/cp_Cart";
+								        		} else {
+								         		alert("삭제 실패");
+								        		}
+								       		}
+								      });//ajax
+								     }//if   
+								    });
+								   </script>
 			                    </ul>
 			                </td>
 			            </tr>
@@ -136,65 +165,84 @@
 				</table>
 			</div>
 			
-			<script type="text/javascript">
-			$(function(){
-				 $(document).on("click",".selectbtn2",function(){
-					// 선택된 품목들의 cart_id를 담을 배열
-					 let check_id = [];
-					
-					 // 체크된 체크박스 항목을 확인하여 배열에 저장
-					 $("input[type='checkbox']:checked").each(function(){
-						 let cart_id = $(this).closest('tr').find('.checkboxbox').text(); // 상품 ID 가져오기
-						 alert(cart_id);
-						 check_id.push(cart_id !== '' ? parseInt(cart_id) : 0); // null 대신 0을 전달
-					 });
-
-					 /*
-			        // 선택된 항목이 없는 경우 경고 메시지 출력 후 종료
-			        if(check_id.length === 0){
-			            alert("선택된 품목이 없습니다.");
-			            return;
-			        }
-
-			        // 삭제를 확인하는 메시지 출력 후 확인 시 삭제 진행
-			        if(confirm("선택된 품목을 삭제하시겠습니까?")){
-			            // AJAX를 사용하여 선택된 품목을 서버로 전송하여 삭제 요청
-			            $.ajax({
-			                url: "/rent/cart_delete", // 삭제를 처리할 서버의 URL
-			                type: "post",
-			                data: {"check_id": check_id}, // 선택된 품목들을 서버로 전송
-			                dataType: "text",
-			                success: function(data){
-			                    // 삭제가 성공한 경우
-			                    alert("선택된 품목이 삭제되었습니다.");
-			                    console.log(data);
-
-			                    // 화면에서 선택된 품목들을 제거
-			                    check_id.forEach(function(cart_id){
-			                        $("#" + cart_id).remove(); // 해당 상품 행 제거
-			                    });
-			                },
-			                error: function(){
-			                    // 삭제 실패 시 오류 메시지 출력
-			                    alert("품목 삭제에 실패했습니다.");
-			                }
-			            });
-			        }
-			        */
-			    });
-			})
-			</script>
-			
 			<div class="c_btnArea">
 				<div class="bRight">
 					<ul>
-						<li><a href="#" class="selectbtn">전체선택</a></li>
-						<li><a href="#" class="selectbtn2">선택삭제</a></li>
+						<li>
+						  <div class="allCheck">
+					    <input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
+					</div>
+					
+					<div class="delBtn">
+					    <button type="button" class="selectDelete_btn">선택 삭제</button> 
+					</div>
+					
+					<script>
+					    $(document).ready(function() {
+					        $("#allCheck").click(function(){
+					            var chk = $("#allCheck").prop("checked");
+					            if(chk) {
+					                $(".chbox").prop("checked", true);
+					            } else {
+					                $(".chbox").prop("checked", false);
+					            }
+					        });
+					        
+					        $(".chbox").click(function(){
+					            $("#allCheck").prop("checked", false);
+					        });
+					        
+					        $(".selectDelete_btn").click(function(){
+					            var confirm_val = confirm("정말 삭제하시겠습니까?");
+					            
+					            if(confirm_val) {
+					                var checkArr = [];
+					                
+					                $("input[class='chbox']:checked").each(function(){
+					                    checkArr.push($(this).attr("data-cart_id"));
+					                });
+					                  
+					                $.ajax({
+					                    url : "/rent/deleteCart",
+					                    type : "post",
+					                    data : { chbox : checkArr },
+					                    success : function(result){
+					                        if(result == 1) {  
+					                            alert("삭제 성공");
+					                            location.href = "/rent/cp_Cart";
+					                        }
+					                    },
+					                    error: function(){
+					                        alert("삭제 실패");
+					                    }
+					                });
+					            }
+					        });
+					    });
+					</script>
+						</li>
 					</ul>
 				</div>
 			</div>
 			<!-- //장바구니 상품 -->
 			<!-- 총 주문금액 -->
+			 <script>
+ 
+            function itemSum() {
+                var str = "";
+                var sum = 0;
+                var count = $(".chkbox").length;
+                for (var i = 0; i < count; i++) {
+                    if ($(".chkbox")[i].checked == true) {
+                        sum += parseInt($(".chkbox")[i].value);
+                    }
+                }
+                $("#total_sum").html(sum + " 원");
+                $("#amount").val(sum);
+            }
+ 
+        </script>
+			
 			<div class="amount">
 				<br><h4>총 주문금액</h4>
 				<ul class="info">
