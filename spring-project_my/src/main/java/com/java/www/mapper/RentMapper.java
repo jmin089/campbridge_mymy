@@ -16,6 +16,8 @@ public interface RentMapper {
 	List<Product_rentcartDto> rentCart(String proId);
 
 	//선택상품 삭제하기
-	void cart_delete(String id, String cart_id);
+	void deleteOneCart(String cart_id);
+
+	void deleteCart(String id, String cart_id);
 
 }

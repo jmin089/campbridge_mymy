@@ -106,7 +106,7 @@
 			    <tbody>
 			        <c:forEach var="product_rentcartDto" items="${list}">
 			            <tr>
-			                <td class="checkboxbox"><input class="chbox" type="checkbox" data-cart_id="${product_rentcartDto.cartDto.cart_id}" /></td>
+			                <td class="checkboxbox"><input class="chbox" type="checkbox" data-cart_id="${product_rentcartDto.cartDto.cart_id}" checked="checked"/></td>
 
 			                <td><p class="img"><img src="/upload/${product_rentcartDto.proDto.p_file}" alt="상품" width="66" height="66" /></p></td>
 			                <td>
@@ -128,37 +128,41 @@
 							    <fmt:formatNumber value="${product_rentcartDto.proDto.p_price * product_rentcartDto.cartDto.cart_count}" pattern="#,##0"/> 원
 							</td>
    							<td class="tnone">
-			                    <ul class="order">    
-			                        <li><a href="#" class="obtnMini iw70">바로구매</a></li>
-			                        <div class="delete">
-										<button type="button" class="delete_btn" data-cart_id="${product_rentcartDto.cartDto.cart_id}">삭제</button>
+							    <ul class="order">    
+							        <li>
+							            <a href="#" class="obtnMini iw70">바로구매</a>
+							        </li>
+							       <div class="delete">
+									   <%--  <button type="button" class="delete_btn" data-cart_id="${product_rentcartDto.cartDto.cart_id}">품목삭제</button> --%>
+									    <button type="button" class="delete_btn ${product_rentcartDto.cartDto.cart_id}" data-cart_id="${product_rentcartDto.cartDto.cart_id}">상품삭제</button>
 									</div>
 									<script>
-								    $(".delete_btn").click(function(){
-								    	let confirm_val = confirm("정말 삭제하시겠습니까?");
-								     
-								    	if(confirm_val) {
-								    	let checkArr = new Array();
-								      
-								    	checkArr.push($(this).attr("data-cart_id"));
-								                 
-								      	$.ajax({
-								        	url : "/rent/deleteCart",
-								       		type : "post",
-								       		data : { chbox : checkArr },
-								       		success : function(result){
-								        		if(result == 1) {       
-								         			location.href = "/rent/cp_Cart";
-								        		} else {
-								         		alert("삭제 실패");
-								        		}
-								       		}
-								      });//ajax
-								     }//if   
-								    });
-								   </script>
-			                    </ul>
-			                </td>
+									    $(".${product_rentcartDto.cartDto.cart_id}").click(function(){
+									        let confirm_val = confirm("정말 삭제하시겠습니까?");
+									        
+									        if(confirm_val) {
+									            let cart_id = $(this).attr("data-cart_id");
+									            alert(cart_id)
+									            $.ajax({
+									                url: "/rent/deleteOneCart",
+									                type: "post",
+									                data: { "cart_id": cart_id },
+									                success: function(result) {
+									                    alert("성공");
+									                    //if (result == 1) {
+									                        location.href = "/rent/cp_Cart";
+									                    //}
+									                },
+									                error: function() {
+									                    alert("실패");
+									                }
+									            }); //ajax 끝.
+									        } //if
+									    });
+									</script>
+							    </ul>
+							</td>
+   							
 			            </tr>
 			        </c:forEach>
 			    </tbody>

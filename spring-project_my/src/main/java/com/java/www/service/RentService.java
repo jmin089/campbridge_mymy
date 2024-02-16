@@ -13,9 +13,8 @@ public interface RentService {
 	List<Product_rentcartDto> rentCart(String proId);
 
 	// 선택상품 삭제하기
+	void deleteOneCart(String cart_id);
+
 	void deleteCart(String id, String cart_id);
-
-
-
 
 }

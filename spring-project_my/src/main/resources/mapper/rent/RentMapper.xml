@@ -17,7 +17,7 @@
 	
 	<!-- 장바구니에 리스트 -->
 	<select id="rentCart" resultMap="product_rentcartDto">
-		select 'c' || rent_cart_seq.nextval as cart_id, rent.id, rent.pro_id, rent.cart_count, pro.p_name, pro.p_price, pro.p_file
+		select cart_id, rent.id, rent.pro_id, rent.cart_count, pro.p_name, pro.p_price, pro.p_file
 		from rent_cart rent, product pro where rent.pro_id = pro.pro_id
 	</select>
 	
@@ -41,6 +41,10 @@
 		<result column="p_file" property="p_file"/>
 	</resultMap>
 	
+	<!-- 선택상품 삭제하기 -->
+	<delete id="deleteOneCart">
+		delete from rent_cart where cart_id=#{cart_id}
+	</delete>
 	<!-- 선택상품 삭제하기 -->
 	<delete id="cart_delete">
 		delete from rent_cart where cart_id=#{cart_id} and id=#{id}

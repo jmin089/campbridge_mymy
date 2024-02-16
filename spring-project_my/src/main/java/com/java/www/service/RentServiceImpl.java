@@ -30,8 +30,13 @@ public class RentServiceImpl implements RentService{
 	}
 	// 선택상품 삭제하기
 	@Override
+	public void deleteOneCart(String cart_id) {
+		rentMapper.deleteOneCart(cart_id);
+		System.out.println("del : "+cart_id);
+	}
+	@Override
 	public void deleteCart(String id, String cart_id) {
-		rentMapper.cart_delete(id, cart_id);
+		rentMapper.deleteCart(id, cart_id);
 		
 	}
 

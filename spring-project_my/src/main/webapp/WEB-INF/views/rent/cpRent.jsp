@@ -140,7 +140,7 @@
 	    });
 		</script>
         <!-- 체크박스 -->
-        <form action="cp_Cart" method="post" id="cp_CartFrm" name="cp_CartFrm">
+        <form action="doCp_Cart" method="post" id="cp_CartFrm" name="cp_CartFrm">
 		  <div class="cp_check">
 		  		<h3>패키지 선택</h3>
 		  		<dl class="pack">
