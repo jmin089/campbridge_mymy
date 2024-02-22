@@ -142,6 +142,7 @@ section {margin:150px 50px; text-align:center;}
 #mypage .diviRight ul li a:hover{color:#fff;}
 
 /* 수량 버튼 */
+.current_count{width: 40px; text-align: center;}
 .countBtn{margin: 20px;}
 .countBtnDown{width: 30px; height: 30px; background-image: url(/assets/img/rent/btn_pre01.png); color: black; font-size: 50px; border: none;}
 .countBtnUp{width: 30px; height: 30px; background-image: url(/assets/img/rent/btn_next01.png); color: black; font-size: 40px; border: none;}

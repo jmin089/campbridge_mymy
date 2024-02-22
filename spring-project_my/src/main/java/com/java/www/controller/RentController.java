@@ -2,6 +2,7 @@ package com.java.www.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,11 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.java.www.dto.Product_rentcartDto;
-import com.java.www.dto.Rent_cartDto;
-import com.java.www.dto.User_campDto;
 import com.java.www.service.RentService;
 
 import jakarta.servlet.http.HttpSession;
@@ -41,10 +39,21 @@ public class RentController {
 		System.out.println("doCp_Cart");
 		String id = (String) session.getAttribute("session_id");
 		String proId = "";
+		int check =0;
 		if (pro_id != null && pro_id.length > 0) { // pro_id가 null이 아니고 길이가 0보다 큰 경우에만 처리
 			for (int i = 0; i < pro_id.length; i++) { 
 				proId = pro_id[i]; 
-				rentService.rentCart_list(proId, id);
+				List<Product_rentcartDto> list = rentService.rentCart(proId);
+				check=0;
+				for(int j=0;j<list.size();j++) {
+					if( list.get(j).getCartDto().getId().equals(id) && list.get(j).getCartDto().getPro_id().equals(proId) ) {
+						rentService.rentUpdate(proId);
+						check =1;
+					} 
+				}
+				if(check==0) {
+					rentService.rentCart_list(proId, id);
+				}
 				System.out.println("RentController cp_Cart 넘어오는 것 : " + proId); 
 			}
 		}
@@ -76,7 +85,7 @@ public class RentController {
 	@ResponseBody
 	public int deleteOneCart(@RequestParam(value = "cart_id") String cart_id) throws Exception {
 	   int result = 0;
-		   System.out.println("del"+cart_id);
+		  System.out.println("del"+cart_id);
 	      rentService.deleteOneCart(cart_id);
 	      result = 1;
 	   return result;    
@@ -85,25 +94,22 @@ public class RentController {
 	//선택상품 삭제하기
 	@PostMapping("deleteCart")
 	@ResponseBody
-	public int deleteCart(
-	       @RequestParam(value = "chbox[]") List<String> checkArr,
-	       @RequestParam(value = "id") String id,
-	       @RequestParam(value = "cart_id") String cart_id) throws Exception {
-	   //logger.info("delete cart");
-	   
-	   Rent_cartDto rent_dto = (Rent_cartDto) session.getAttribute("id");
-	   
+	public int deleteCart(@RequestParam(value = "cart_id[]") List<String> cart_id) {
 	   int result = 0;
-	   
-	   if (rent_dto != null && rent_dto.getId().equals(id)) {
-	      // 여기에서 cartNum, userId를 직접 사용하여 처리하거나,
-		   rentService.deleteCart(id, cart_id); //형태로 서비스에 전달할 수 있습니다.
-	      // service.deleteCart(cart);
-	      result = 1;
-	   }    
+	   for(int i=0; i<cart_id.size(); i++) {
+	   		rentService.deleteCart(cart_id.get(i));
+	   }
+	    result = 1;
 	   return result;    
 	}
-
+	//
+	@PostMapping("/updatecount")
+	@ResponseBody
+	public String updatecount(@RequestParam String cart_id, @RequestParam int cart_count, @RequestParam String stat) {
+		Map<String, Object> result = rentService.updatecount(cart_id, cart_count, stat);
+	    return "result";
+	}
+	
 	//2인용 상세페이지(구현x)
 	@GetMapping("cpRent_v1")
 	public String cpRent_v1() {

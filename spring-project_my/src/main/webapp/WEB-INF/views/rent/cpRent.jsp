@@ -206,7 +206,7 @@
 					 </li>
 			 		<li> 
 				 		<input type="checkbox" id="tableware2" name="pro_id" value="p012" onClick="clkOftenAddr(this);"/> 
-						<label for="tableware2" onmouseover="showModal('../assets/img/rent/coppell4.PNG');">코펠 4인(6,000원)</label>
+						<label for="tableware2" onmouseover="showModal('../assets/img/rent/coppell4.PNG');">코펠 3인(6,000원)</label>
 			 		</li>
 					<li> 
 						<input type="checkbox" id="tableware3" name="pro_id" value="p013" onClick="clkOftenAddr(this);"/> 

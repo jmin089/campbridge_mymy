@@ -9,7 +9,6 @@
 		<meta charset="UTF-8">
 		<title>대여 목록</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script src="/resources/jquery/jquery-3.3.1.min.js"></script>
 	    <meta content="" name="description">
 	    <meta content="" name="keywords">
 	
@@ -45,7 +44,6 @@
 		<!-- 장바구니에 상품이 있을경우 -->
 		<!-- 장바구니 상품 -->
 		<h1>장바구니</h1>
-		<h3>장바구니에 담긴 상품은 30일간 보관됩니다.</h3>
 		<div class="orderDivNm">
 			<table id="cartTable" summary="장바구니에 담긴 상품들을 전체선택, 상품명, 가격/포인트, 수량, 합계, 주문 순으로 조회 및 주문을 하실수 있습니다." class="orderTable" border="1" cellspacing="0">
 			    <!--<caption id="cp_cart_list">대여 상품목록</caption> -->
@@ -66,47 +64,80 @@
 			        <th scope="col">합계</th>
 			        <th scope="col" class="tnone">주문</th>
 			    </thead>
-				    
 			<script>
-			    $(document).ready(function() {
-			        $(".countBtnDown").on('click', countBtnDown);
-			        $(".countBtnUp").on('click', countBtnUp);
-			        
-			        // 수량을 감소시키는 함수
-			        function countBtnDown() {
-			            let spinner = $(this).siblings(".spinner");
-			            let count = parseInt(spinner.val());
-			            if (count > 1) { // 최소 수량은 1로 설정
-			                spinner.val(count - 1);
-			                updateTotalPrice($(this));
-			            }
-			        }
-			
-			        // 수량을 증가시키는 함수
-			        function countBtnUp() {
-			            let spinner = $(this).siblings(".spinner");
-			            let count = parseInt(spinner.val());
-			            spinner.val(count + 1);
-			            updateTotalPrice($(this));
-			        }
-			
-			        // 합계금액을 업데이트하는 함수
-			        function updateTotalPrice(btn) {
-					    let parentRow = btn.closest("tr");
-					    let unitPriceText = parentRow.find('.tnone').text().replace(' 원', '').replace(',', ''); // 쉼표를 제거한 후 숫자로 변환
-					    let unitPrice = parseFloat(unitPriceText);
-					    let quantity = parseInt(parentRow.find('.spinner').val());
-					    let totalPrice = unitPrice * quantity;
-					    parentRow.find('.total_tnone').text(totalPrice.toLocaleString() + ' 원'); // 수정된 위치에 업데이트합니다.
-					}
-			       
-			    });//$(document).ready(function()
-			</script>
-				    
+    $(document).ready(function() {
+        $(".countBtnDown").on('click', countBtnDown);
+        $(".countBtnUp").on('click', countBtnUp);
+		let stat = "";
+        
+        // 수량을 감소시키는 함수
+        function countBtnDown() {
+            let current_count = $(this).siblings(".current_count");
+            let count = parseInt(current_count.val());
+            if (count > 1) {
+                current_count.val(count - 1);
+                updateTotalPrice($(this));
+                stat = "countDown";
+                updateQuantityOnServer($(this),stat);
+            }
+        }
+
+        // 수량을 증가시키는 함수
+        function countBtnUp() {
+            let current_count = $(this).siblings(".current_count");
+            let count = parseInt(current_count.val());
+            current_count.val(count + 1);
+            updateTotalPrice($(this));
+            stat = "countUp";
+            updateQuantityOnServer($(this),stat);
+        }
+
+        // 합계금액을 업데이트하는 함수
+        function updateTotalPrice(countBtn) {
+            let parentRow = countBtn.closest("tbody");
+            let unitPriceText = parentRow.find('.tnone').text().replace(' 원', '').replace(',', '');
+            let unitPrice = parseFloat(unitPriceText);
+            let quantity = parseInt(parentRow.find('.current_count').val());
+            let totalPrice = unitPrice * quantity;
+            parentRow.find('.total_tnone').text(totalPrice.toLocaleString() + ' 원');
+        }
+
+        // 서버에 수량 업데이트 함수
+        function updateQuantityOnServer(countBtn,stat) {
+            let parentRow = countBtn.closest("tbody");            
+            let cart_id = parentRow.find('.cart_id').val();
+            //let pro_id = parentRow.find('.pro_id').val(); // 상품 ID 추가
+            let current_count = parseInt(parentRow.find('.current_count').val());
+			//alert(cart_id)
+			//alert(pro_id)
+			//alert(current_count)
+            // AJAX를 사용하여 서버에 업데이트된 수량 전송
+            $.ajax({
+                url: "/rent/updatecount",
+                type: "post",
+                data: {"cart_id": cart_id, "cart_count": current_count, "stat":stat},
+                dataType: "text",
+                success: function(result) {
+                    alert("성공");
+                   /*  location.href = "/rent/cp_Cart"; */
+                },
+                error: function() {
+                    alert("실패");
+                }
+            }); //ajax 끝
+        }
+    });
+</script>
+
 			    <tbody>
 			        <c:forEach var="product_rentcartDto" items="${list}">
+			        <c:if test="${product_rentcartDto.cartDto.id eq sessionScope.session_id}">
+			        <input type="hidden" name="cart_id" class="cart_id" value="${product_rentcartDto.cartDto.cart_id}"/>
+			        <input type="hidden" name="cart_count" class="cart_count" value="${product_rentcartDto.cartDto.cart_count}"/>
+			        <input type="hidden" name="pro_id" class="pro_id" value="${product_rentcartDto.proDto.pro_id}"/>
 			            <tr>
-			                <td class="checkboxbox"><input class="chbox" type="checkbox" data-cart_id="${product_rentcartDto.cartDto.cart_id}" checked="checked"/></td>
+			                <td class="checkboxbox">
+			                <input class="chbox" type="checkbox" data-cart_id="${product_rentcartDto.cartDto.cart_id}" checked="checked"/></td>
 
 			                <td><p class="img"><img src="/upload/${product_rentcartDto.proDto.p_file}" alt="상품" width="66" height="66" /></p></td>
 			                <td>
@@ -120,20 +151,16 @@
    					 			<fmt:formatNumber value="${product_rentcartDto.proDto.p_price}" pattern="#,##0"/> 원<br/>
 							</td>
    							<td class="countBtn">
-   								<button type="button" class="countBtnDown"></button>
-   								<input class="spinner" value="${product_rentcartDto.cartDto.cart_count}" maxlength="3"/>
-   								<button type="button" class="countBtnUp"></button>
-   							</td>
+			                    <input type="button" class="countBtnDown" onclick="updateQuantity(-1)">
+			                    <input class="current_count" id="quantityField_${product_rentcartDto.cartDto.cart_id}" value="${product_rentcartDto.cartDto.cart_count}" maxlength="3"/>
+			                    <input type="button" class="countBtnUp" onclick="updateQuantity(+1)">
+			                </td>
    							<td class="total_tnone">
 							    <fmt:formatNumber value="${product_rentcartDto.proDto.p_price * product_rentcartDto.cartDto.cart_count}" pattern="#,##0"/> 원
 							</td>
    							<td class="tnone">
 							    <ul class="order">    
-							        <li>
-							            <a href="#" class="obtnMini iw70">바로구매</a>
-							        </li>
 							       <div class="delete">
-									   <%--  <button type="button" class="delete_btn" data-cart_id="${product_rentcartDto.cartDto.cart_id}">품목삭제</button> --%>
 									    <button type="button" class="delete_btn ${product_rentcartDto.cartDto.cart_id}" data-cart_id="${product_rentcartDto.cartDto.cart_id}">상품삭제</button>
 									</div>
 									<script>
@@ -142,16 +169,14 @@
 									        
 									        if(confirm_val) {
 									            let cart_id = $(this).attr("data-cart_id");
-									            alert(cart_id)
+									            //alert(cart_id)
 									            $.ajax({
 									                url: "/rent/deleteOneCart",
 									                type: "post",
 									                data: { "cart_id": cart_id },
 									                success: function(result) {
 									                    alert("성공");
-									                    //if (result == 1) {
 									                        location.href = "/rent/cp_Cart";
-									                    //}
 									                },
 									                error: function() {
 									                    alert("실패");
@@ -164,6 +189,7 @@
 							</td>
    							
 			            </tr>
+			        </c:if>
 			        </c:forEach>
 			    </tbody>
 				</table>
@@ -173,80 +199,55 @@
 				<div class="bRight">
 					<ul>
 						<li>
-						  <div class="allCheck">
+						 <div class="allCheck">
 					    <input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
-					</div>
+						</div>
+						<div class="delBtn">
+						    <button type="button" class="selectDelete_btn ${product_rentcartDto.cartDto.cart_id}">선택 삭제</button> 
+						</div>
 					
-					<div class="delBtn">
-					    <button type="button" class="selectDelete_btn">선택 삭제</button> 
-					</div>
-					
-					<script>
-					    $(document).ready(function() {
-					        $("#allCheck").click(function(){
-					            var chk = $("#allCheck").prop("checked");
-					            if(chk) {
-					                $(".chbox").prop("checked", true);
-					            } else {
-					                $(".chbox").prop("checked", false);
-					            }
-					        });
-					        
-					        $(".chbox").click(function(){
-					            $("#allCheck").prop("checked", false);
-					        });
-					        
-					        $(".selectDelete_btn").click(function(){
-					            var confirm_val = confirm("정말 삭제하시겠습니까?");
-					            
-					            if(confirm_val) {
-					                var checkArr = [];
-					                
-					                $("input[class='chbox']:checked").each(function(){
-					                    checkArr.push($(this).attr("data-cart_id"));
-					                });
-					                  
-					                $.ajax({
-					                    url : "/rent/deleteCart",
-					                    type : "post",
-					                    data : { chbox : checkArr },
-					                    success : function(result){
-					                        if(result == 1) {  
-					                            alert("삭제 성공");
-					                            location.href = "/rent/cp_Cart";
-					                        }
-					                    },
-					                    error: function(){
-					                        alert("삭제 실패");
-					                    }
-					                });
-					            }
+						<script>
+						
+						$(document).ready(function() {
+					        $("#allCheck").change(function() {
+					            $(".chbox").prop("checked", $(this).prop("checked"));
 					        });
 					    });
-					</script>
+						
+						$(".selectDelete_btn").click(function(){
+					        let confirm_val = confirm("선택된 물품을 정말 삭제하시겠습니까?");
+					        
+					        
+					        if(confirm_val) {
+					        	let checkArr = [];
+					        	$("input[class='chbox']:checked").each(function(){
+				                    checkArr.push($(this).attr("data-cart_id"));
+				                });
+					        	alert(checkArr)
+					            $.ajax({
+				                    url : "/rent/deleteCart",
+				                    type : "post",
+				                    data : {cart_id : checkArr},
+				                    success : function(result){
+				                        if(result == 1) {  
+				                            alert("삭제 성공");
+				                            location.href = "/rent/cp_Cart";
+				                        }
+					                },
+					                error: function() {
+					                    alert("실패");
+					                }
+					            }); //ajax 끝.
+					        } //if
+					    });
+						</script>
 						</li>
 					</ul>
 				</div>
 			</div>
 			<!-- //장바구니 상품 -->
 			<!-- 총 주문금액 -->
-			 <script>
- 
-            function itemSum() {
-                var str = "";
-                var sum = 0;
-                var count = $(".chkbox").length;
-                for (var i = 0; i < count; i++) {
-                    if ($(".chkbox")[i].checked == true) {
-                        sum += parseInt($(".chkbox")[i].value);
-                    }
-                }
-                $("#total_sum").html(sum + " 원");
-                $("#amount").val(sum);
-            }
- 
-        </script>
-			
+						
 			<div class="amount">
 				<br><h4>총 주문금액</h4>
 				<ul class="info">
@@ -265,15 +266,6 @@
 
 		<!-- //장바구니에 상품이 있을경우 -->
 		
-		<!-- 장바구니에 상품이 없을경우
-			<div class="noting">
-				<div class="point"><span class="orange">장바구니</span>에 담긴 상품이 없습니다.</div>
-
-				<p>장바구니에 담긴 상품은 30일간만 보관됩니다.<br/>더 오래 보관하고 싶은 상품은 <u>위시리스트</u>에 담아주세요.</p>
-
-				<a href="#">쇼핑 계속하기</a>
-			</div>
-		 //장바구니에 상품이 없을경우 -->
 		 
 	<a href="cpRent"><button type="button" class="cp_CartBtn">뒤로가기</button></a> 
 	<a href="cp_Cart02"><button type="button" class="cp_CartBtn">선택상품 주문하기</button></a> 

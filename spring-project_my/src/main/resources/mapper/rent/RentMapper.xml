@@ -41,13 +41,23 @@
 		<result column="p_file" property="p_file"/>
 	</resultMap>
 	
-	<!-- 선택상품 삭제하기 -->
+	<!-- 품목삭제 버튼으로 해당품목만 삭제 -->
 	<delete id="deleteOneCart">
 		delete from rent_cart where cart_id=#{cart_id}
 	</delete>
 	<!-- 선택상품 삭제하기 -->
-	<delete id="cart_delete">
-		delete from rent_cart where cart_id=#{cart_id} and id=#{id}
+	<delete id="deleteCart">
+		delete from rent_cart where cart_id=#{cart_id}
 	</delete>
 	
+	<!-- 수량변경 -->
+	<update id="updatecount_up">
+		update rent_cart set cart_count=cart_count+1 where cart_id=#{cart_id}
+	</update>
+	<update id="updatecount_down">
+		update rent_cart set cart_count=cart_count-1 where cart_id=#{cart_id}
+	</update>
+	<update id="updatecount">
+		update rent_cart set cart_count=cart_count+1 where pro_id=#{pro_id}
+	</update>
 </mapper>
